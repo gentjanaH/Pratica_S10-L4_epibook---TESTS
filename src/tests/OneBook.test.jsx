@@ -3,24 +3,24 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import OneBook from "../components/OneBook"
 import fantasy from "../data/fantasy.json"
 
-describe("Testing if the border of the cards is border-info", () => {
+describe("Testing Onebook borders", () => {
 
-    it("checkt if the border  at the begin is border-info", async () => {
+    it("checks if the card has border-info at the beginning", () => {
 
         render(<OneBook book={fantasy[0]} />)
-        const cards = await screen.findAllByTestId('card-libri')
+        const cards = screen.getByTestId('card-libri')
         expect(cards).toHaveClass("border-info")
 
 
     })
 
-    it("check if the border becoms border-danger", async () => {
-        render(<OneBook book={fantasy[0]} />)
-        const image = await screen.findAllByAltText(/copertina-libro/i)
+    it("checks if the border become border-danger", () => {
+        render(<OneBook book={fantasy[0]} selectedBook={null} handleBookSelect={() => { }} />)
+        const image = screen.getByText(/copertina-libro/i)
 
         fireEvent.click(image)
 
-        const card = await screen.findAllByTestId("card-libri")
+        const card = screen.getByTestId("card-libri")
 
         expect(card).toHaveClass("border-danger")
 
